@@ -11,6 +11,8 @@ class MyPipes extends StatelessWidget {
       height: size,
       decoration: BoxDecoration(
         color: Colors.greenAccent,
+        border: Border.all(width: 10,color: Colors.greenAccent.shade700),
+        borderRadius: BorderRadius.circular(15)
       ),
     );
   }
