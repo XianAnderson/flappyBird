@@ -62,7 +62,7 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   alignment: Alignment(0, -0.2),
-                  child: Text("T A P  T O  P L A Y",
+                  child: gameStart ? Text(" ") : Text("T A P  T O  P L A Y",
                       style: TextStyle(fontSize: 20, color: Colors.white)),
                 ),
               ],
