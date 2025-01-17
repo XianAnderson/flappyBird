@@ -16,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   bool gameStart = false;
   static double pipeXone = 1;
   double pipeXtwo = pipeXone + 1.5;
+  int score = 0, highScore = 0;
 
   void jump() {
     setState(() {
@@ -51,6 +52,17 @@ class _HomePageState extends State<HomePage> {
         timer.cancel();
         gameStart = false;
       }
+    });
+  }
+
+  void _resetGame() {
+    setState(() {
+      birdYaxis = 0;
+      time = 0;
+      intHeight = birdYaxis;
+      pipeXone = 1;
+      pipeXtwo = pipeXone + 1.5;
+      score = 0;
     });
   }
 
