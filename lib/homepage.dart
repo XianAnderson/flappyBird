@@ -31,9 +31,24 @@ class _HomePageState extends State<HomePage> {
       height = -4.9 * time * time + 2.8 * time;
       setState(() {
         birdYaxis = intHeight - height;
-        pipeXone -= 0.05;
-        pipeXtwo -= 0.05;
       });
+      setState(() {
+        if (pipeXone < -1.1){
+          pipeXone += 2.2;
+        }
+        else{
+          pipeXone -= 0.05;
+        }
+      });
+      setState(() {
+        if (pipeXtwo < -1.1){
+          pipeXtwo += 2.2;
+        }
+        else{
+          pipeXtwo -= 0.05;
+        }
+      });
+
       if (birdYaxis > 1) {
         timer.cancel();
         gameStart = false;
