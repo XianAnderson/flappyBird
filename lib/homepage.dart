@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flappybirdie/bird.dart';
+import 'package:flappybirdie/pipes.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -62,8 +63,17 @@ class _HomePageState extends State<HomePage> {
                 ),
                 Container(
                   alignment: Alignment(0, -0.2),
-                  child: gameStart ? Text(" ") : Text("T A P  T O  P L A Y",
-                      style: TextStyle(fontSize: 20, color: Colors.white)),
+                  child: gameStart
+                      ? Text(" ")
+                      : Text("T A P  T O  P L A Y",
+                          style: TextStyle(fontSize: 20, color: Colors.white)),
+                ),
+                AnimatedContainer(
+                  alignment: Alignment(0, 1.1),
+                  duration: Duration(milliseconds: 0),
+                  child: MyPipes(
+                    size: 200.0,
+                  ),
                 ),
               ],
             ),
