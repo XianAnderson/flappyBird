@@ -60,9 +60,13 @@ class _HomePageState extends State<HomePage>{
               ),
             ),
           ),
+          Container(
+            height: 15,
+            color: Colors.green,
+          ),
           Expanded(
             child: Container(
-              color: const Color.fromARGB(255, 32, 102, 35),
+              color: Colors.brown,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
