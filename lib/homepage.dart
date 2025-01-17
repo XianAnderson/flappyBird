@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Homepage extends StatefulWidget{
+class HomePage extends StatefulWidget{
   @override
   _HomePageState createState() => _HomePageState();
 }
