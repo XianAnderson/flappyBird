@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flappybirdie/bird.dart';
 import 'package:flutter/material.dart';
 
@@ -12,22 +11,27 @@ class _HomePageState extends State<HomePage>{
   double birdYaxis = 0;
   double time = 0;
   double height = 0;
-  double intHeight = 0;
+  double intHeight = birdYaxis;
   bool gameStart = false;
   
   void jump(){
-    intHeight = birdYaxis;
+    setState(() {
+      time = 0;
+      intHeight = birdYaxis;
+    });
   }
 
   void startGame(){
+    gameStart = true;
     Timer.periodic(Duration(milliseconds: 60), (timer){
       time += 0.05;
       height = -4.9 * time * time + 2.8 * time;
       setState(() {
         birdYaxis = intHeight - height;
       });
-      if (birdYaxis > 0){
-
+      if (birdYaxis > 1){
+        timer.cancel();
+        gameStart = false;
       }
     });
   }
@@ -58,7 +62,7 @@ class _HomePageState extends State<HomePage>{
           ),
           Expanded(
             child: Container(
-              color: Colors.green,
+              color: const Color.fromARGB(255, 32, 102, 35),
             ),
           ),
         ],
