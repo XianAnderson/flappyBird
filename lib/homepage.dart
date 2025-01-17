@@ -2,34 +2,34 @@ import 'dart:async';
 import 'package:flappybirdie/bird.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget{
+class HomePage extends StatefulWidget {
   @override
   _HomePageState createState() => _HomePageState();
 }
 
-class _HomePageState extends State<HomePage>{
+class _HomePageState extends State<HomePage> {
   double birdYaxis = 0;
   double time = 0;
   double height = 0;
   double intHeight = birdYaxis;
   bool gameStart = false;
-  
-  void jump(){
+
+  void jump() {
     setState(() {
       time = 0;
       intHeight = birdYaxis;
     });
   }
 
-  void startGame(){
+  void startGame() {
     gameStart = true;
-    Timer.periodic(Duration(milliseconds: 60), (timer){
+    Timer.periodic(Duration(milliseconds: 60), (timer) {
       time += 0.05;
       height = -4.9 * time * time + 2.8 * time;
       setState(() {
         birdYaxis = intHeight - height;
       });
-      if (birdYaxis > 1){
+      if (birdYaxis > 1) {
         timer.cancel();
         gameStart = false;
       }
@@ -37,27 +37,35 @@ class _HomePageState extends State<HomePage>{
   }
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: [
           Expanded(
             flex: 2,
-            child: GestureDetector( 
-              onTap: (){
-                if (gameStart){
-                  jump();
-                }
-                else{
-                  startGame();
-                }
-              },
-              child: AnimatedContainer(
-                alignment: Alignment(0, birdYaxis),
-                duration: Duration(milliseconds: 0),
-                color: Colors.blue,
-                child: MyBird(),
-              ),
+            child: Stack(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    if (gameStart) {
+                      jump();
+                    } else {
+                      startGame();
+                    }
+                  },
+                  child: AnimatedContainer(
+                    alignment: Alignment(0, birdYaxis),
+                    duration: Duration(milliseconds: 0),
+                    color: Colors.blue,
+                    child: MyBird(),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment(0, -0.2),
+                  child: Text("T A P  T O  P L A Y",
+                      style: TextStyle(fontSize: 20, color: Colors.white)),
+                ),
+              ],
             ),
           ),
           Container(
@@ -73,21 +81,25 @@ class _HomePageState extends State<HomePage>{
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Score:", style: TextStyle(color: Colors.white, fontSize: 20)),
+                      Text("Score:",
+                          style: TextStyle(color: Colors.white, fontSize: 20)),
                       SizedBox(
                         height: 20,
                       ),
-                      Text("0", style: TextStyle(color: Colors.white, fontSize: 35)),
+                      Text("0",
+                          style: TextStyle(color: Colors.white, fontSize: 35)),
                     ],
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Text("Best:", style: TextStyle(color: Colors.white, fontSize: 20)),
+                      Text("Best:",
+                          style: TextStyle(color: Colors.white, fontSize: 20)),
                       SizedBox(
                         height: 20,
                       ),
-                      Text("10", style: TextStyle(color: Colors.white, fontSize: 35)),
+                      Text("10",
+                          style: TextStyle(color: Colors.white, fontSize: 35)),
                     ],
                   ),
                 ],
