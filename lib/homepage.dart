@@ -9,11 +9,13 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  double birdYaxis = 0;
+  static double birdYaxis = 0;
   double time = 0;
   double height = 0;
   double intHeight = birdYaxis;
   bool gameStart = false;
+  static double pipeXone = 1;
+  double pipeXtwo = pipeXone + 1.5;
 
   void jump() {
     setState(() {
@@ -29,6 +31,8 @@ class _HomePageState extends State<HomePage> {
       height = -4.9 * time * time + 2.8 * time;
       setState(() {
         birdYaxis = intHeight - height;
+        pipeXone -= 0.05;
+        pipeXtwo -= 0.05;
       });
       if (birdYaxis > 1) {
         timer.cancel();
@@ -69,10 +73,31 @@ class _HomePageState extends State<HomePage> {
                           style: TextStyle(fontSize: 20, color: Colors.white)),
                 ),
                 AnimatedContainer(
-                  alignment: Alignment(0, 1.1),
+                  alignment: Alignment(pipeXone, 1.1),
                   duration: Duration(milliseconds: 0),
                   child: MyPipes(
                     size: 200.0,
+                  ),
+                ),
+                AnimatedContainer(
+                  alignment: Alignment(pipeXone, -1.1),
+                  duration: Duration(milliseconds: 0),
+                  child: MyPipes(
+                    size: 200.0,
+                  ),
+                ),
+                AnimatedContainer(
+                  alignment: Alignment(pipeXtwo, 1.1),
+                  duration: Duration(milliseconds: 0),
+                  child: MyPipes(
+                    size: 150.0,
+                  ),
+                ),
+                AnimatedContainer(
+                  alignment: Alignment(pipeXtwo, -1.1),
+                  duration: Duration(milliseconds: 0),
+                  child: MyPipes(
+                    size: 250.0,
                   ),
                 ),
               ],
