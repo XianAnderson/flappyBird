@@ -33,18 +33,16 @@ class _HomePageState extends State<HomePage> {
         birdYaxis = intHeight - height;
       });
       setState(() {
-        if (pipeXone < -1.1){
-          pipeXone += 2.2;
-        }
-        else{
+        if (pipeXone < -2) {
+          pipeXone += 3.5;
+        } else {
           pipeXone -= 0.05;
         }
       });
       setState(() {
-        if (pipeXtwo < -1.1){
-          pipeXtwo += 2.2;
-        }
-        else{
+        if (pipeXtwo < -2) {
+          pipeXtwo += 3.5;
+        } else {
           pipeXtwo -= 0.05;
         }
       });
@@ -58,106 +56,110 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          Expanded(
-            flex: 2,
-            child: Stack(
-              children: [
-                GestureDetector(
-                  onTap: () {
-                    if (gameStart) {
-                      jump();
-                    } else {
-                      startGame();
-                    }
-                  },
-                  child: AnimatedContainer(
-                    alignment: Alignment(0, birdYaxis),
-                    duration: Duration(milliseconds: 0),
-                    color: Colors.blue,
-                    child: MyBird(),
-                  ),
-                ),
-                Container(
-                  alignment: Alignment(0, -0.2),
-                  child: gameStart
-                      ? Text(" ")
-                      : Text("T A P  T O  P L A Y",
-                          style: TextStyle(fontSize: 20, color: Colors.white)),
-                ),
-                AnimatedContainer(
-                  alignment: Alignment(pipeXone, 1.1),
-                  duration: Duration(milliseconds: 0),
-                  child: MyPipes(
-                    size: 200.0,
-                  ),
-                ),
-                AnimatedContainer(
-                  alignment: Alignment(pipeXone, -1.1),
-                  duration: Duration(milliseconds: 0),
-                  child: MyPipes(
-                    size: 200.0,
-                  ),
-                ),
-                AnimatedContainer(
-                  alignment: Alignment(pipeXtwo, 1.1),
-                  duration: Duration(milliseconds: 0),
-                  child: MyPipes(
-                    size: 150.0,
-                  ),
-                ),
-                AnimatedContainer(
-                  alignment: Alignment(pipeXtwo, -1.1),
-                  duration: Duration(milliseconds: 0),
-                  child: MyPipes(
-                    size: 250.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            height: 15,
-            color: Colors.green,
-          ),
-          Expanded(
-            child: Container(
-              color: Colors.brown,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Score:",
-                          style: TextStyle(color: Colors.white, fontSize: 20)),
-                      SizedBox(
-                        height: 20,
+    return GestureDetector(
+        onTap: () {
+          if (gameStart) {
+            jump();
+          } else {
+            startGame();
+          }
+        },
+        child: Scaffold(
+          body: Column(
+            children: [
+              Expanded(
+                flex: 2,
+                child: Stack(
+                  children: [
+                    AnimatedContainer(
+                      alignment: Alignment(0, birdYaxis),
+                      duration: Duration(milliseconds: 0),
+                      color: Colors.blue,
+                      child: MyBird(),
+                    ),
+                    Container(
+                      alignment: Alignment(0, -0.2),
+                      child: gameStart
+                          ? Text(" ")
+                          : Text("T A P  T O  P L A Y",
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.white)),
+                    ),
+                    AnimatedContainer(
+                      alignment: Alignment(pipeXone, 1.1),
+                      duration: Duration(milliseconds: 0),
+                      child: MyPipes(
+                        size: 200.0,
                       ),
-                      Text("0",
-                          style: TextStyle(color: Colors.white, fontSize: 35)),
-                    ],
-                  ),
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text("Best:",
-                          style: TextStyle(color: Colors.white, fontSize: 20)),
-                      SizedBox(
-                        height: 20,
+                    ),
+                    AnimatedContainer(
+                      alignment: Alignment(pipeXone, -1.1),
+                      duration: Duration(milliseconds: 0),
+                      child: MyPipes(
+                        size: 200.0,
                       ),
-                      Text("10",
-                          style: TextStyle(color: Colors.white, fontSize: 35)),
-                    ],
-                  ),
-                ],
+                    ),
+                    AnimatedContainer(
+                      alignment: Alignment(pipeXtwo, 1.1),
+                      duration: Duration(milliseconds: 0),
+                      child: MyPipes(
+                        size: 150.0,
+                      ),
+                    ),
+                    AnimatedContainer(
+                      alignment: Alignment(pipeXtwo, -1.1),
+                      duration: Duration(milliseconds: 0),
+                      child: MyPipes(
+                        size: 250.0,
+                      ),
+                    ),
+                  ],
+                ),
               ),
-            ),
+              Container(
+                height: 15,
+                color: Colors.green,
+              ),
+              Expanded(
+                child: Container(
+                  color: Colors.brown,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Score:",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20)),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text("0",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 35)),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text("Best:",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 20)),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text("10",
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 35)),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 }
