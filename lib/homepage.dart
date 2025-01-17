@@ -63,6 +63,31 @@ class _HomePageState extends State<HomePage>{
           Expanded(
             child: Container(
               color: const Color.fromARGB(255, 32, 102, 35),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Score:", style: TextStyle(color: Colors.white, fontSize: 20)),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text("0", style: TextStyle(color: Colors.white, fontSize: 35)),
+                    ],
+                  ),
+                  Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Best:", style: TextStyle(color: Colors.white, fontSize: 20)),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text("10", style: TextStyle(color: Colors.white, fontSize: 35)),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ],
