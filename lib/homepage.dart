@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
 
   void startGame() {
     gameStart = true;
-    Timer.periodic(Duration(milliseconds: 60), (timer) {
+    Timer.periodic(Duration(milliseconds: 45), (timer) {
       time += 0.05;
       height = -4.9 * time * time + 2.8 * time;
       setState(() {
@@ -36,6 +36,7 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         if (pipeXone < -2) {
           pipeXone += 3.5;
+          score += 1;
         } else {
           pipeXone -= 0.05;
         }
@@ -43,16 +44,87 @@ class _HomePageState extends State<HomePage> {
       setState(() {
         if (pipeXtwo < -2) {
           pipeXtwo += 3.5;
+          score += 1;
         } else {
           pipeXtwo -= 0.05;
         }
       });
-
-      if (birdYaxis > 1) {
+      if (birdYaxis > 1 || _checkCollision()) {
         timer.cancel();
         gameStart = false;
+        _gameOverDialog();
       }
     });
+  }  
+
+bool _checkCollision() {
+  // Bird's position
+  double birdTop = birdYaxis - 0.05; // 100 pixels normalized to 0.05
+  double birdBottom = birdYaxis + 0.05;
+
+  // Pipe 1 bounds
+  double pipe1Left = pipeXone - 0.1; // 100 pixels normalized to 0.1
+  double pipe1Right = pipeXone + 0.1;
+  double pipe1GapTop = -0.5; // Adjust based on visual gap
+  double pipe1GapBottom = 0.5; // Adjust based on visual gap
+
+  // Pipe 2 bounds
+  double pipe2Left = pipeXtwo - 0.1;
+  double pipe2Right = pipeXtwo + 0.1;
+  double pipe2GapTop = -0.25; // Adjust based on visual gap
+  double pipe2GapBottom = 0.65; // Adjust based on visual gap
+
+  // Collision with pipe 1
+  bool hitsPipe1 = (birdTop < pipe1GapTop || birdBottom > pipe1GapBottom) &&
+      (pipe1Left < 0 && pipe1Right > 0);
+
+  // Collision with pipe 2
+  bool hitsPipe2 = (birdTop < pipe2GapTop || birdBottom > pipe2GapBottom) &&
+      (pipe2Left < 0 && pipe2Right > 0);
+
+  // Check if bird hits ground or sky
+  bool hitsGround = birdBottom > 1;
+  //bool hitsSky = birdTop < -1;
+
+  return hitsPipe1 || hitsPipe2 || hitsGround;
+}
+
+void _gameOverDialog() {
+    if (score > highScore) {
+      highScore = score; // Update high score
+    }
+
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.brown,
+          title: Center(
+            child: Text(
+              "GAME OVER",
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+          content: Text(
+            "Score: $score",
+            style: TextStyle(color: Colors.white),
+          ),
+          actions: [
+            TextButton(
+              child: Text(
+                "PLAY AGAIN",
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+                _resetGame(); // Reset the game
+              },
+              
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _resetGame() {
@@ -147,7 +219,7 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(
                             height: 20,
                           ),
-                          Text("0",
+                          Text("$score",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 35)),
                         ],
@@ -161,7 +233,7 @@ class _HomePageState extends State<HomePage> {
                           SizedBox(
                             height: 20,
                           ),
-                          Text("10",
+                          Text("$highScore",
                               style:
                                   TextStyle(color: Colors.white, fontSize: 35)),
                         ],
