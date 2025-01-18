@@ -27,7 +27,7 @@ class _HomePageState extends State<HomePage> {
 
   void startGame() {
     gameStart = true;
-    Timer.periodic(Duration(milliseconds: 45), (timer) {
+    Timer.periodic(Duration(milliseconds: 41), (timer) {
       time += 0.05;
       height = -4.9 * time * time + 2.8 * time;
       setState(() {
